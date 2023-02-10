@@ -22,9 +22,7 @@ main{
     max-width: 600px;
     text-align: center;
 }
-.calc-dataerror{
-    color: #e20d0d;
-}
+
 .input-handler{
     max-width: 800px;
     width: 100%;

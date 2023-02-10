@@ -18,7 +18,7 @@ export default function App() {
         distance: 40,
         dateFrom: Today(0),
         dateTo: Today(6),
-        carClass: "",
+        carClass: "basic",
         timePrice: 0,
         fuelPrice: 0,
         netPrice: 0,

@@ -17,7 +17,7 @@ export default function App() {
         dLicense: 2000,
         distance: 40,
         dateFrom: Today(0),
-        dateTo: Today(7),
+        dateTo: Today(6),
         carClass: "",
         timePrice: 0,
         fuelPrice: 0,

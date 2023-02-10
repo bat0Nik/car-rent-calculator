@@ -52,8 +52,21 @@ export default function App() {
         e.preventDefault()
 
     }
-
-
+    const changeValue = (e) =>{
+        const { value , name } = e.target
+        let change=1
+        if(value==="basic")change=0;
+        if(value==="standard")change=2;
+        if(value==="medium")change=4;
+        if(value==="premium")change=6;
+        setData(prevData => ({
+            ...prevData,
+            [name]: value,
+            carID:change
+        }))
+    }
+    
+    
 
     const carOptions = [
         { id: 0, priceCategory: "basic", label: "Opel Astra 2018", location: "Rzeszów", rentPrice: 150, avgfuelConsumption: 5.6, avaliableModels: 13 },
@@ -68,67 +81,37 @@ export default function App() {
 
 
     function chceckCarClass() {
+        let basicCars = carOptions.filter(car => car.priceCategory === "basic");
+        let standardCars = carOptions.filter(car => car.priceCategory === "standard");
+        let mediumCars = carOptions.filter(car => car.priceCategory === "medium");
+        let premiumCars = carOptions.filter(car => car.priceCategory === "premium");
         switch (data.carClass) {
-            case 'basic': return (<>
-                <select
-                    name="carID"
-                    value={data.carID}
-                    onChange={changeHandler}
-                    className="car-class"
-                >
-                    <option default value={carOptions[0].id}>{carOptions[0].label}</option>
-                    <option value={carOptions[1].id}>{carOptions[1].label}</option>
-                </select>
-                <span>Pojazd</span>
-            </>);
-            case 'standard': return (<>
-                <select
-                    name="carID"
-                    value={data.carID}
-                    onChange={changeHandler}
-                    className="car-class"
-                >
-                    <option value={carOptions[2].id}>{carOptions[2].label}</option>
-                    <option value={carOptions[3].id}>{carOptions[3].label}</option>
-                </select>
-                <span>Pojazd</span>
-            </>);
-            case 'medium': return (<>
-                <select
-                    name="carID"
-                    value={data.carID}
-                    onChange={changeHandler}
-                    className="car-class"
-                >
-                    <option value={carOptions[4].id}>{carOptions[4].label}</option>
-                    <option value={carOptions[5].id}>{carOptions[5].label}</option>
-                </select>
-                <span>Pojazd</span>
-            </>);
-            case 'premium': return (<>
-                <select
-                    name="carID"
-                    value={data.carID}
-                    onChange={changeHandler}
-                    className="car-class"
-                >
-                    <option value={carOptions[6].id}>{carOptions[6].label}</option>
-                    <option value={carOptions[7].id}>{carOptions[7].label}</option>
-                </select>
-                <span>Pojazd</span>
-            </>);
-            default: return (<>
-                <select
-                    name="carID"
-                    value={data.carID}
-                    onChange={changeHandler}
-                    className="car-class"
-                >
-                    <option value={carOptions[0].id}>{carOptions[0].label}</option>
-                    <option value={carOptions[0].id}>{carOptions[1].label}</option>
-                </select>
-                <span>Pojazd</span>
-            </>);
+            case 'basic': return (
+                basicCars.map((car) => (
+                    <option key={car.id} value={car.id}>{car.label}</option>
+                ))
+            );
+            case 'standard':
+                return (
+                    standardCars.map((car) => (
+                        <option key={car.id} value={car.id}>{car.label}</option>
+                    ))
+                );
+            case 'medium': return (
+                mediumCars.map((car) => (
+                    <option key={car.id} value={car.id}>{car.label}</option>
+                ))
+            );
+            case 'premium': return (
+                premiumCars.map((car) => (
+                    <option key={car.id} value={car.id}>{car.label}</option>
+                ))
+            );
+            default: return (
+                basicCars.map((car) => (
+                    <option key={car.id} value={car.id}>{car.label}</option>
+                ))
+            );
         }
     }
 
@@ -197,6 +180,7 @@ export default function App() {
                             name="carClass"
                             value={data.carClass}
                             onChange={changeHandler}
+                            onInput={changeValue}
                             className="car-class"
                         >
                             <option value="basic">Basic</option>
@@ -207,7 +191,15 @@ export default function App() {
                         <span>Klasa pojazdu</span>
                     </div>
                     <div>
-                        {chceckCarClass()}
+                        <select
+                            name="carID"
+                            defaultValue={data.carID}
+                            onChange={changeHandler}
+                            className="car-class"
+                        >
+                            {chceckCarClass()}
+                        </select>
+                        <span>Pojazd</span>
                     </div>
 
                 </div>

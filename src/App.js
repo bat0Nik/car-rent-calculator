@@ -1,111 +1,143 @@
 import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import Cost from "./components/Cost"
 import "./index.css"
 
 export default function App() {
-    
+
     function Today(a) {
         var someDate = new Date()
         someDate.setDate(someDate.getDate() + a)
         var dateFormated = someDate.toISOString().substr(0, 10)
         return dateFormated
     }
-    
+
     var date = new Date()
     const currnetYear = date.getFullYear()
-    
+
     const [data, setData] = useState({
         dLicense: 2000,
         distance: 40,
         dateFrom: Today(0),
         dateTo: Today(6),
         carClass: "basic",
-        timePrice: 0,
-        fuelPrice: 0,
-        netPrice: 0,
-        grossPrice: 0
+        carID: 0
     })
+    console.log(data)
     function changeHandler(event) {
         const { name, value } = event.target
         setData(prevData => ({
             ...prevData,
             [name]: value
         }))
+
     }
-    
-    function dateHandler() {
-        var date1 = new Date(data.dateFrom);
-        var date2 = new Date(data.dateTo);
-        var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        return diffDays
+
+    function ShowCosts() {
+        ReactDOM.render(
+            <Cost
+                dLicense={data.dLicense}
+                distance={data.distance}
+                carClass={carOptions[data.carID].priceCategory}
+                dateFrom={data.dateFrom}
+                dateTo={data.dateTo}
+                rentPrice={carOptions[data.carID].rentPrice}
+                fuelConsumption={carOptions[data.carID].avgfuelConsumption / 100}
+                avaliableModels={carOptions[data.carID].avaliableModels}
+            />,
+            document.getElementById("costs"))
     }
+
+    const submitHandler = (e) => {
+        e.preventDefault()
+
+    }
+
+
+
+    const carOptions = [
+        { id: 0, priceCategory: "basic", label: "Opel Astra 2018", location: "Rzeszów", rentPrice: 150, avgfuelConsumption: 5.6, avaliableModels: 13 },
+        { id: 1, priceCategory: "basic", label: "Chevrolet Aveo 2015", location: "Poznań", rentPrice: 145, avgfuelConsumption: 5.3, avaliableModels: 10 },
+        { id: 2, priceCategory: "standard", label: "BMW M3 2020", location: "Kraków", rentPrice: 169, avgfuelConsumption: 8.6, avaliableModels: 9 },
+        { id: 3, priceCategory: "standard", label: "Mazda MX-5 2019", location: "Wrocław", rentPrice: 165, avgfuelConsumption: 6.6, avaliableModels: 7 },
+        { id: 4, priceCategory: "medium", label: "Audi A8 TFSI 2021", location: "Łódź", rentPrice: 199, avgfuelConsumption: 9.6, avaliableModels: 5 },
+        { id: 5, priceCategory: "medium", label: "Mercedes GLS SUV 2020", location: "Warszawa", rentPrice: 210, avgfuelConsumption: 9.1, avaliableModels: 3 },
+        { id: 6, priceCategory: "premium", label: "Chevrolet Camaro 2022", location: "Wrocław", rentPrice: 240, avgfuelConsumption: 9.9, avaliableModels: 6 },
+        { id: 7, priceCategory: "premium", label: "Lamborghini Aventador 2020", location: "Warszawa", rentPrice: 270, avgfuelConsumption: 9.2, avaliableModels: 2 },
+    ]
+
 
     function chceckCarClass() {
-        var mnoznik = 0
         switch (data.carClass) {
-            case 'basic':
-                mnoznik = 1;
-                break;
-            case 'standard':
-                mnoznik = 1.3;
-                break;
-            case 'medium':
-                mnoznik = 1.6;
-                break;
-            case 'premium':
-                mnoznik = 2;
-                break;
-            default:
-                mnoznik = 1;
-                break;
+            case 'basic': return (<>
+                <select
+                    name="carID"
+                    value={data.carID}
+                    onChange={changeHandler}
+                    className="car-class"
+                >
+                    <option default value={carOptions[0].id}>{carOptions[0].label}</option>
+                    <option value={carOptions[1].id}>{carOptions[1].label}</option>
+                </select>
+                <span>Pojazd</span>
+            </>);
+            case 'standard': return (<>
+                <select
+                    name="carID"
+                    value={data.carID}
+                    onChange={changeHandler}
+                    className="car-class"
+                >
+                    <option value={carOptions[2].id}>{carOptions[2].label}</option>
+                    <option value={carOptions[3].id}>{carOptions[3].label}</option>
+                </select>
+                <span>Pojazd</span>
+            </>);
+            case 'medium': return (<>
+                <select
+                    name="carID"
+                    value={data.carID}
+                    onChange={changeHandler}
+                    className="car-class"
+                >
+                    <option value={carOptions[4].id}>{carOptions[4].label}</option>
+                    <option value={carOptions[5].id}>{carOptions[5].label}</option>
+                </select>
+                <span>Pojazd</span>
+            </>);
+            case 'premium': return (<>
+                <select
+                    name="carID"
+                    value={data.carID}
+                    onChange={changeHandler}
+                    className="car-class"
+                >
+                    <option value={carOptions[6].id}>{carOptions[6].label}</option>
+                    <option value={carOptions[7].id}>{carOptions[7].label}</option>
+                </select>
+                <span>Pojazd</span>
+            </>);
+            default: return (<>
+                <select
+                    name="carID"
+                    value={data.carID}
+                    onChange={changeHandler}
+                    className="car-class"
+                >
+                    <option value={carOptions[0].id}>{carOptions[0].label}</option>
+                    <option value={carOptions[0].id}>{carOptions[1].label}</option>
+                </select>
+                <span>Pojazd</span>
+            </>);
         }
-        return mnoznik
     }
 
-
-    function drivingLicense() {
-        
-        var mnozik=1
-        
-        if (data.dLicense < (currnetYear - 5)) {
-            mnozik = 1
-        } else {
-            mnozik = 1.2
-        }
-        return mnozik
-    }
-
-    function premiumCarRent(){
-        var disable = true
-        if (data.dLicense > (currnetYear - 3)) {
-            disable=false
-        } else {
-            disable=true
-        }
-        return disable
-    }
-    function Calculate() {
-        
-        const avgFuelPrice = 8
-        const dayPaynment = 200.00
-        const multiplier = chceckCarClass()
-        const licensPaynment = drivingLicense()
-        const avgFuelConsumption = 12 / 100
-        setData(prevData => ({
-            ...prevData,
-            fuelPrice: ((avgFuelConsumption * avgFuelPrice) * data.distance).toFixed(2),
-            timePrice: (dateHandler() * dayPaynment),
-            netPrice: ((((dateHandler() * dayPaynment) + ((avgFuelConsumption * avgFuelPrice) * data.distance)) * multiplier) * licensPaynment).toFixed(2),
-            grossPrice: (((((dateHandler() * dayPaynment) + ((avgFuelConsumption * avgFuelPrice) * data.distance))* multiplier) * licensPaynment)*1.23).toFixed(2)
-        }))
-
-    }
     return (
 
         <main>
             <h1 className="calc-header">KALKULATOR</h1>
             <p className="calc-info">Skorzystaj z naszego kalkulatora aby obliczyc cenę wyporzyczenia samochodu z naszej wypożyczalni</p>
-            <div className="input-handler">
+            <form className="input-handler" onSubmit={submitHandler}>
                 <div className="input-single">
                     <input
                         type="number"
@@ -113,12 +145,12 @@ export default function App() {
                         id="dLicense"
                         onChange={changeHandler}
                         value={data.dLicense}
-                        min={currnetYear-60}
+                        min={currnetYear - 60}
                         max={currnetYear}
-                        required
-                    />     
+
+                    />
                     <span>Rok otrzymania prawa jazdy:</span>
-                    
+
                 </div>
                 <div className="input-single">
                     <input
@@ -130,8 +162,8 @@ export default function App() {
                         min={0}
                         required
                     />
-                    <span>Dystans (km):</span>
-                    
+                    <span>Szacowana ilość kilowmtrów:</span>
+
                 </div>
                 <div className="input-single">
                     <input
@@ -144,7 +176,7 @@ export default function App() {
                         required
                     />
                     <span>Data wyporzyczenia pojazdu:</span>
-                    
+
                 </div>
                 <div className="input-single">
                     <input
@@ -157,62 +189,36 @@ export default function App() {
                         required
                     />
                     <span>Data oddania pojazdu:</span>
-                   
                 </div>
-            </div>
-            <div className="class-choose">
-                <select
-                    id="carClass"
-                    name="carClass"
-                    value={data.carClass}
-                    onChange={changeHandler}
-                    className="car-class"
-                >
-                    <option value="basic">Basic</option>
-                    <option value="standard">Standard</option>
-                    <option value="medium">Medium</option>
-                    {premiumCarRent() ? <option value="premium" >Premium</option> : <option value="premium" disabled>Premium</option>}
-                </select>
-                <span>Klasa pojazdu</span>
-            </div>
-            <button
-                onClick={Calculate}
-                className="summ-btn"
-            >OBLICZ</button>
-            <div className="summ-container">
-                <div className="summ-single">
-                    <h4>Koszt paliwa(PLN):</h4>
-                    <input
-                        disabled
-                        value={data.fuelPrice}
-                        name="fuelPrice"
-                    />
+                <div className="class-choose">
+                    <div>
+                        <select
+                            id="carClass"
+                            name="carClass"
+                            value={data.carClass}
+                            onChange={changeHandler}
+                            className="car-class"
+                        >
+                            <option value="basic">Basic</option>
+                            <option value="standard">Standard</option>
+                            <option value="medium">Medium</option>
+                            <option value="premium">Premium</option>
+                        </select>
+                        <span>Klasa pojazdu</span>
+                    </div>
+                    <div>
+                        {chceckCarClass()}
+                    </div>
+
                 </div>
-                <div className="summ-single">
-                    <h4>Koszt za czas wypozyczenia(PLN):</h4>
-                    <input
-                        disabled
-                        value={data.timePrice}
-                        name="timePrice"
-                    />
-                </div>
-                <div className="summ-single">
-                    <h4>Cena końcowa netto(PLN):</h4>
-                    <input
-                        disabled
-                        value={data.netPrice}
-                        name="netPrice"
-                    />
-                </div>
-                <div className="summ-single">
-                    <h4>Cena końcowa brutto(PLN):</h4>
-                    <input
-                        disabled
-                        value={data.grossPrice}
-                        name="grossPrice"
-                    />
-                </div>
-            </div>
+                <button
+                    onClick={ShowCosts}
+                    className="summ-btn"
+                >OBLICZ</button>
+            </form>
+
+            <div id="costs"></div>
+
         </main>
     )
 }

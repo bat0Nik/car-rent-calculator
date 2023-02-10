@@ -11,7 +11,7 @@ main{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 30px;
+    padding: 20px;
 }
 .calc-header{
     margin-bottom: 40px;
@@ -27,13 +27,11 @@ main{
     max-width: 800px;
     width: 100%;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto;
     gap: 20px;
-    margin-bottom: 40px;
 }
 .input-single{
     display: grid;
-    max-width: 390px;
     min-width: 235px;
 }
 .input-single input{
@@ -41,7 +39,6 @@ main{
     font-family: 'Poppins';
     font-size: 1.5rem;
     padding: 10px 12px;
-    max-width: 390px;
     min-width: 235px;
     height: 61px;
     border-radius: 5px;
@@ -71,10 +68,13 @@ main{
     border: 1px solid #f12424;
 }
 .class-choose{
-    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-around;
 }
 .car-class{
     margin: 0;
+    height: 61px;
+    width: 235px;
     padding: 10px 30px 10px 10px;
     border-radius: 5px;
     border: 1px solid gray;
@@ -86,9 +86,11 @@ main{
     padding: 0 5px;
     background: white;
     pointer-events: none;
-    transform: translateX(-110px) translateY(-50%);
+    transform: translateX(-225px) translateY(-50%);
     border-left: 1px solid gray;
     border-right: 1px solid gray;
+    font-size:.8rem;
+    font-weight: bold;
     color: gray;
 }
 
@@ -108,6 +110,11 @@ main{
 .summ-btn:active{
     background: #851414;
 }
+#costs{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .summ-container{
     max-width: 800px;
     width: 100%;
@@ -120,11 +127,4 @@ main{
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
-}
-.summ-single input{
-    border: 0;
-    border-bottom: 1px solid gray;
-    padding-left: 10px;
-    background: none;
-    font-size: large;
 }

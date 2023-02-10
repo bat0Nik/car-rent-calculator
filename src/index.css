@@ -79,6 +79,8 @@ main{
     border-radius: 5px;
     border: 1px solid gray;
     outline: none;
+    font-size: 1rem;
+    font-weight: 600;
 }
 .class-choose span{
     position: absolute;
@@ -126,5 +128,4 @@ main{
 .summ-single{
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
 }

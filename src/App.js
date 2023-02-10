@@ -6,13 +6,13 @@ import "./index.css"
 export default function App() {
 
     function Today(a) {
-        var someDate = new Date()
+        let someDate = new Date()
         someDate.setDate(someDate.getDate() + a)
-        var dateFormated = someDate.toISOString().substr(0, 10)
+        let dateFormated = someDate.toISOString().substr(0, 10)
         return dateFormated
     }
 
-    var date = new Date()
+    let date = new Date()
     const currnetYear = date.getFullYear()
 
     const [data, setData] = useState({
@@ -23,7 +23,6 @@ export default function App() {
         carClass: "basic",
         carID: 0
     })
-    console.log(data)
     function changeHandler(event) {
         const { name, value } = event.target
         setData(prevData => ({
@@ -52,29 +51,29 @@ export default function App() {
         e.preventDefault()
 
     }
-    const changeValue = (e) =>{
-        const { value , name } = e.target
-        let change=1
-        if(value==="basic")change=0;
-        if(value==="standard")change=2;
-        if(value==="medium")change=4;
-        if(value==="premium")change=6;
+    const changeValue = (e) => {
+        const { value, name } = e.target
+        let change = 1
+        if (value === "basic") change = 0;
+        if (value === "standard") change = 2;
+        if (value === "medium") change = 4;
+        if (value === "premium") change = 6;
         setData(prevData => ({
             ...prevData,
             [name]: value,
-            carID:change
+            carID: change
         }))
     }
-    
-    
+
+
 
     const carOptions = [
         { id: 0, priceCategory: "basic", label: "Opel Astra 2018", location: "Rzeszów", rentPrice: 150, avgfuelConsumption: 5.6, avaliableModels: 13 },
         { id: 1, priceCategory: "basic", label: "Chevrolet Aveo 2015", location: "Poznań", rentPrice: 145, avgfuelConsumption: 5.3, avaliableModels: 10 },
-        { id: 2, priceCategory: "standard", label: "BMW M3 2020", location: "Kraków", rentPrice: 169, avgfuelConsumption: 8.6, avaliableModels: 9 },
+        { id: 2, priceCategory: "standard", label: "BMW M3 2020", location: "Kraków", rentPrice: 169, avgfuelConsumption: 8.6, avaliableModels: 2 },
         { id: 3, priceCategory: "standard", label: "Mazda MX-5 2019", location: "Wrocław", rentPrice: 165, avgfuelConsumption: 6.6, avaliableModels: 7 },
         { id: 4, priceCategory: "medium", label: "Audi A8 TFSI 2021", location: "Łódź", rentPrice: 199, avgfuelConsumption: 9.6, avaliableModels: 5 },
-        { id: 5, priceCategory: "medium", label: "Mercedes GLS SUV 2020", location: "Warszawa", rentPrice: 210, avgfuelConsumption: 9.1, avaliableModels: 3 },
+        { id: 5, priceCategory: "medium", label: "Mercedes GLS SUV 2020", location: "Warszawa", rentPrice: 210, avgfuelConsumption: 9.1, avaliableModels: 1 },
         { id: 6, priceCategory: "premium", label: "Chevrolet Camaro 2022", location: "Wrocław", rentPrice: 240, avgfuelConsumption: 9.9, avaliableModels: 6 },
         { id: 7, priceCategory: "premium", label: "Lamborghini Aventador 2020", location: "Warszawa", rentPrice: 270, avgfuelConsumption: 9.2, avaliableModels: 2 },
     ]

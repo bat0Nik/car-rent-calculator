@@ -114,6 +114,7 @@ export default function App() {
                         onChange={changeHandler}
                         value={data.dLicense}
                         min={currnetYear-60}
+                        max={currnetYear}
                         required
                     />     
                     <span>Rok otrzymania prawa jazdy:</span>
